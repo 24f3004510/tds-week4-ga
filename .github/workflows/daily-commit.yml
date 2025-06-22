@@ -1,0 +1,25 @@
+name: Daily Commit Workflow
+
+on:
+  schedule:
+    - cron: '15 14 * * *'  # runs daily at 06:25 UTC (adjust if needed)
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Make a dummy change - 24f3004510@ds.study.iitm.ac.in
+        run: |
+          echo "Last run: $(date -u)" > last_run.txt
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add last_run.txt
+          git commit -m "Daily commit at $(date -u)"
+          git push
