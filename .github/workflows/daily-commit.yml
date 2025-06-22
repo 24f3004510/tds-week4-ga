@@ -2,12 +2,15 @@ name: Daily Commit Workflow
 
 on:
   schedule:
-    - cron: '25 6 * * *'  # runs daily at 06:25 UTC
+    - cron: '25 6 * * *'
   workflow_dispatch:
 
 jobs:
   daily-commit:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # this line is required to allow push
 
     steps:
       - name: Checkout code
